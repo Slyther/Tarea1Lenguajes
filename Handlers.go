@@ -9,7 +9,7 @@ import (
 )
 
 func Index(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, "Seig Hiel!")
+	fmt.Fprintln(w, "Sieg Heil!")
 }
 
 func Ejercicio1(w http.ResponseWriter, r *http.Request) {
@@ -18,13 +18,13 @@ func Ejercicio1(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		panic(err)
 	}
-	if err := r.Body.Close(); err != nil {
+	if err = r.Body.Close(); err != nil {
 		panic(err)
 	}
-	if err := json.Unmarshal(body, &ejercicio1PostModel); err != nil {
+	if err = json.Unmarshal(body, &ejercicio1PostModel); err != nil {
 		w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 		w.WriteHeader(422)
-		if err := json.NewEncoder(w).Encode(err); err != nil {
+		if err = json.NewEncoder(w).Encode(err); err != nil {
 			panic(err)
 		}
 		return
@@ -32,7 +32,7 @@ func Ejercicio1(w http.ResponseWriter, r *http.Request) {
 	if len(ejercicio1PostModel.Origen) == 0 || len(ejercicio1PostModel.Destino) == 0 {
 		w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 		w.WriteHeader(400)
-		if err := json.NewEncoder(w).Encode("Formato no correcto."); err != nil {
+		if err = json.NewEncoder(w).Encode("Formato no correcto."); err != nil {
 			panic(err)
 		}
 		return
@@ -41,7 +41,7 @@ func Ejercicio1(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 		w.WriteHeader(400)
-		if err := json.NewEncoder(w).Encode(err); err != nil {
+		if err = json.NewEncoder(w).Encode(err); err != nil {
 			panic(err)
 		}
 		return
@@ -59,13 +59,13 @@ func Ejercicio2(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		panic(err)
 	}
-	if err := r.Body.Close(); err != nil {
+	if err = r.Body.Close(); err != nil {
 		panic(err)
 	}
-	if err := json.Unmarshal(body, &ejercicio2PostModel); err != nil {
+	if err = json.Unmarshal(body, &ejercicio2PostModel); err != nil {
 		w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 		w.WriteHeader(422)
-		if err := json.NewEncoder(w).Encode(err); err != nil {
+		if err = json.NewEncoder(w).Encode(err); err != nil {
 			panic(err)
 		}
 		return
@@ -73,7 +73,7 @@ func Ejercicio2(w http.ResponseWriter, r *http.Request) {
 	if len(ejercicio2PostModel.Origen) == 0 {
 		w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 		w.WriteHeader(400)
-		if err := json.NewEncoder(w).Encode("Formato no correcto."); err != nil {
+		if err = json.NewEncoder(w).Encode("Formato no correcto."); err != nil {
 			panic(err)
 		}
 		return
@@ -82,9 +82,10 @@ func Ejercicio2(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 		w.WriteHeader(400)
-		if err := json.NewEncoder(w).Encode(err); err != nil {
+		if err = json.NewEncoder(w).Encode(err); err != nil {
 			panic(err)
 		}
+		return
 	}
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
@@ -138,7 +139,7 @@ func Ejercicio4(w http.ResponseWriter, r *http.Request) {
 	if err := json.Unmarshal(body, &ejercicio4PostModel); err != nil {
 		w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 		w.WriteHeader(422)
-		if err := json.NewEncoder(w).Encode(err); err != nil {
+		if err = json.NewEncoder(w).Encode(err); err != nil {
 			panic(err)
 		}
 		return

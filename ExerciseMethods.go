@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"image"
 	"image/color"
+	"regexp"
 	"strings"
 	"time"
 
@@ -28,6 +29,9 @@ func GetDirections(model Ejercicio1PostModel) (response Ejercicio1ResponseModel,
 		return response, err
 	}
 	c, err := maps.NewClient(maps.WithAPIKey("AIzaSyAcd1jNXWTE1U0fBI-At5hstqEV0NvoWfo"))
+	if err != nil {
+		return response, err
+	}
 	r := &maps.DirectionsRequest{
 		Origin:      model.Origen,
 		Destination: model.Destino,
@@ -47,7 +51,7 @@ func GetDirections(model Ejercicio1PostModel) (response Ejercicio1ResponseModel,
 func GetNearbyRestaurants(model Ejercicio2PostModel) (response Ejercicio2ResponseModel, err error) {
 	response.ResponseModel = make([]Ejercicio2Model, 0)
 	if !ValidateAddress(model.Origen) {
-		err := errors.New("Formato de direccion incorrecto.")
+		err = errors.New("Formato de direccion incorrecto.")
 		return response, err
 	}
 	geocodingApi, err := maps.NewClient(maps.WithAPIKey("AIzaSyDd02xLxxzBlCnBxFmu4dw-zkJnSfRlPEg"))
@@ -164,5 +168,6 @@ func EncodeBitmap(bitmap image.Image) (b64String string) {
 func ValidateAddress(address string) (isValid bool) {
 	//http://stackoverflow.com/questions/9397485/regex-street-address-match
 	//¯\_(ツ)_/¯
-	return true
+	isValid, _ = regexp.MatchString("..*,..*", address)
+	return isValid
 }
